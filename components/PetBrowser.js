@@ -9,8 +9,8 @@ class PetBrowser extends React.Component {
   this.checkAdoptionStatus = this.checkAdoptionStatus.bind(this)
   }
   
-  checkAdoptionStatus(collection, pet){
-    if(collection.includes(pet)){
+  checkAdoptionStatus(pet){
+    if(this.props.adoptedPets.includes(pet.id)){
       return true
     } else { 
       return false
@@ -21,9 +21,9 @@ class PetBrowser extends React.Component {
 
   render() {
     const adoptedPets = this.props.adoptedPets
-    const pets = this.props.pets.map(pet => {
+    const pets = this.props.pets.map((pet, index) => {
       return ( 
-        <Pet pet={pet} isAdopted={this.checkAdoptionStatus(adoptedPets, pet)} onAdoptPet={this.props.onAdoptPet} />
+        <Pet key={index} pet={pet} isAdopted={this.checkAdoptionStatus(pet)} onAdoptPet={this.props.onAdoptPet} />
       )
     })
     
