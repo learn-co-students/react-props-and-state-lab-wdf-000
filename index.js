@@ -5,7 +5,7 @@ require('./fetch-setup');
 const App = require('./components/App');
 
 ReactDOM.render(
-  <App />,
+  <App/>,
   document.getElementById('main')
 );
 
