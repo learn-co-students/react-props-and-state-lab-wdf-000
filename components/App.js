@@ -29,9 +29,11 @@ class App extends React.Component {
   }
 
   handleAdoptPet(id){
+    debugger;
     this.setState({
       adoptedPets: [...this.state.adoptedPets, id]
     });
+    debugger;
   }
 
   fetchPets(){
@@ -41,7 +43,7 @@ class App extends React.Component {
       url += `?type=${this.state.filters.type}`;
     }
 
-    fetch(url)
+    return fetch(url)a
       .then(res => res.json())
       .then(pets => this.setState({ pets }));
   }
@@ -58,7 +60,7 @@ class App extends React.Component {
               <Filters filters={this.state.filters} onChangeType={this.handleChangeType} onFindPetsClick={this.fetchPets}/>
             </div>
             <div className="twelve wide column">
-              <PetBrowser pets={this.state.pets} onAdoptPet={this.handleAdoptPet} />
+              <PetBrowser pets={this.state.pets} adoptedPets={this.state.adoptedPets} onAdoptPet={this.handleAdoptPet} />
             </div>
           </div>
         </div>
@@ -70,12 +72,4 @@ class App extends React.Component {
 module.exports = App;
 
 
-// The app's initial state is already defined. Pass the right state properties to the <Filters /> and <PetBrowser /> components.
-// When the <Filters /> component calls the onChangeType prop you pass into it, <App />'s state needs to be updated accordingly.
-// When the <Filters /> component calls the onFindPetsClick prop you pass into it, the <App /> component should fetch a list of pets using fetch.
-// The URL of the API is /api/pets with an optional query parameter.
-// If the type is 'all', send a request to /api/pets.
-// If the type is 'cat', send a request to /api/pets?type=cat. Do the same thing for dog and micropig.
-// Finally, set the pet data on the state property pets to properly pass them to the <PetBrowser /> component.
-// When the <PetBrowser /> component calls the onAdoptPet prop you pass into it, add the pet ID to the the adoptedPets array in the state.
 
