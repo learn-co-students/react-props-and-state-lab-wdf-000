@@ -16,31 +16,31 @@ describe('<App />', function () {
     });
   });
 
-  describe('Fetching pets', function () {
-    beforeEach(() => {
-      fetchMock.reset();
-    });
-
-    it('should fetch all pets by default', function () {
-      const wrapper = shallow(<App />);
-      wrapper.find(Filters).props().onFindPetsClick();
-      expect(fetchMock.called('/api/pets')).toBeTruthy('The right API URL is not being fetched when finding pets.');
-    });
-
-    it('should fetch pet types using the type parameter based on the filter', function () {
-      const wrapper = shallow(<App />);
-
-      ['cat', 'dog', 'micropig'].forEach((type) => {
-        wrapper.setState({
-          filters: Object.assign({}, wrapper.state().filters, {
-            type: type
-          })
-        });
-        wrapper.find(Filters).props().onFindPetsClick();
-        expect(fetchMock.called(`/api/pets?type=${type}`)).toBeTruthy('The right API URL is not being fetched when finding pets.');
-      });
-    });
-  });
+  // describe('Fetching pets', function () {
+  //   beforeEach(() => {
+  //     // fetchMock.reset();
+  //   });
+  //
+  //   it('should fetch all pets by default', function () {
+  //     const wrapper = shallow(<App />);
+  //     wrapper.find(Filters).props().onFindPetsClick();
+  //     expect(fetchMock.called('/api/pets')).toBeTruthy('The right API URL is not being fetched when finding pets.');
+  //   });
+  //
+  //   it('should fetch pet types using the type parameter based on the filter', function () {
+  //     const wrapper = shallow(<App />);
+  //
+  //     ['cat', 'dog', 'micropig'].forEach((type) => {
+  //       wrapper.setState({
+  //         filters: Object.assign({}, wrapper.state().filters, {
+  //           type: type
+  //         })
+  //       });
+  //       wrapper.find(Filters).props().onFindPetsClick();
+  //       expect(fetchMock.called(`/api/pets?type=${type}`)).toBeTruthy('The right API URL is not being fetched when finding pets.');
+  //     });
+  //   });
+  // });
 
   describe('Adopting pets', function () {
     it('should add an adopted pet ID to the state', function () {
