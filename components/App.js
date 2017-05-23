@@ -13,10 +13,39 @@ export default class App extends React.Component {
       filters: {
         type: 'all',
       }
-    };
+    }
+
+    this.handleOnChangeType = this.handleOnChangeType.bind(this)
+    this.handleOnFindPetsClick = this.handleOnFindPetsClick.bind(this)
+    this.apiUrl = this.apiUrl.bind(this)
+    this.handleOnAdoptPet = this.handleOnAdoptPet.bind(this)
+  }
+
+  handleOnChangeType(event){
+    this.setState({
+      filters: Object.assign({}, this.state.filters, {
+        type: event
+       })
+      }
+    )
+  }
+
+  handleOnFindPetsClick(event){
+   return fetch(this.apiUrl(this.state.filters.type))
+  }
+  
+  handleOnAdoptPet(id){
+    this.setState({
+      adoptedPets: id
+      })
+   }
+  apiUrl(filter){
+    const base_url = `/api/pets`
+    return filter === "all" ? base_url : `${base_url}?type=${filter}`
   }
 
   render() {
+  
     return (
       <div className="ui container">
         <header>
@@ -25,10 +54,10 @@ export default class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters />
+              <Filters filters={this.state.filters} onChangeType={this.handleOnChangeType} onFindPetsClick={this.handleOnFindPetsClick}/>
             </div>
             <div className="twelve wide column">
-              <PetBrowser />
+              <PetBrowser pets={this.state.pets} adoptedPets={this.state.adoptedPets} onAdoptPet={this.handleOnAdoptPet}/>
             </div>
           </div>
         </div>
